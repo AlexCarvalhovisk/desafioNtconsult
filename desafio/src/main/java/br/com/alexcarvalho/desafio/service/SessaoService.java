@@ -5,11 +5,13 @@ import br.com.alexcarvalho.desafio.model.Pauta;
 import br.com.alexcarvalho.desafio.model.Sessao;
 import br.com.alexcarvalho.desafio.repository.PautaRepository;
 import br.com.alexcarvalho.desafio.repository.SessaoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 public class SessaoService {
 
@@ -32,7 +34,14 @@ public class SessaoService {
                 .fim(LocalDateTime.now().plusMinutes(1)) // Tempo padrão de 1 minuto
                 .build();
 
-        sessao = sessaoRepository.save(sessao);
+        try{
+            sessao = sessaoRepository.save(sessao);
+            log.info("Sessão salva com sucesso!");
+        } catch (Exception e){
+            log.error("Erro ao criar sessão em abrirSessão no SessãoService", e);
+            throw e;
+        }
+        //verificar o pauta.getId
         return new SessaoDTO(sessao.getId(), pauta.getId(), sessao.getInicio(), sessao.getFim());
     }
 }

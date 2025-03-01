@@ -7,9 +7,11 @@ import br.com.alexcarvalho.desafio.model.Sessao;
 import br.com.alexcarvalho.desafio.model.Voto;
 import br.com.alexcarvalho.desafio.repository.SessaoRepository;
 import br.com.alexcarvalho.desafio.repository.VotoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class VotoService {
 
@@ -35,8 +37,12 @@ public class VotoService {
                 .associadoId(votoDTO.getAssociadoId())
                 .votoOpcao(VotoOpcao.valueOf(votoDTO.getVotoOpcao()))
                 .build();
-
-        votoRepository.save(voto);
+        try{
+            votoRepository.save(voto);
+            log.info("Voto salvo com sucesso!");
+        }catch (Exception e) {
+            log.error("O voto não foi salvo em registrarVoto no VotoService.");
+        }
     }
 
     // Método para contabilizar o resultado da votação
