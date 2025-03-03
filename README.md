@@ -59,6 +59,6 @@ Exemplo de request:
 
 ![GetRetornoAPI](https://github.com/user-attachments/assets/b463a84d-2871-4f6b-9afb-a6423ecaa2f7)
 
-Retorna os votos e aprezenta os resultados da votação (GET)
+Retorna os votos e apresenta os resultados da votação (GET)
 http://localhost:8080/api/votos/resultados/1
 
